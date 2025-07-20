@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init({
    email: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     password: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           len: [3, 50] 
