@@ -4,5 +4,6 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 console.log('PORT from .env:', process.env.PORT);
 
 module.exports={
-    PORT:process.env.PORT
+    PORT:process.env.PORT,
+    SALT_ROUNDS:process.env.SALT_ROUNDS
 }

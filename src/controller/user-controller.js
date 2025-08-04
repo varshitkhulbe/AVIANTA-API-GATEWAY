@@ -1,6 +1,6 @@
+const {successResponse,errorResponse}=require("../utils/common")
 const {UserService}=require("../services")
 const {StatusCodes}=require("http-status-codes")
-const {successResponse,errorResponse}=require("../utils/common")
 
 /** 
  * POST: /SIGNUP

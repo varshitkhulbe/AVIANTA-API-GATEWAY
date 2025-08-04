@@ -4,4 +4,3 @@ const errorResponse={
     error:{},
     data:{}
 }
-module.exports = errorResponse;
