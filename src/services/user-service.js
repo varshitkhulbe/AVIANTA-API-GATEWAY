@@ -1,12 +1,18 @@
 const { StatusCodes } = require("http-status-codes");
 const { UserRepository } = require("../repositories");
-const {Auth}=require('../utils/common')
+const {RoleRepository}= require("../repositories");
+const {Auth,enums}=require('../utils/common')
 const userrepository = new UserRepository();
+const rolerepository= new RoleRepository();
 const  appError = require("../utils/error/app-error");
 
 async function createUser(data) {
   try {
     const user = await userrepository.create(data);
+    console.log(user);
+    const role= await  rolerepository.getRoleByName(enums.USER_ROLES_ENUMS.CUSTOMER);
+    console.log(role);
+    user.addRole(role);
     return user;
   } catch (error) {
     console.error("UserService createUser internal error:", error); 

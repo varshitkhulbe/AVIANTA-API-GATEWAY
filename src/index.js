@@ -5,17 +5,17 @@ const {serverConfig,Logger} =require('./config')
 const apiRoutes = require('./routes')
 const app = express();
 
-const limiter=rateLimit({
-    windowMs: 2 * 60 * 1000,
-    max: 3,
+// const limiter=rateLimit({
+//     windowMs: 2 * 60 * 1000,
+//     max: 3,
 
-})
+// })
 
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.use(limiter)
+// app.use(limiter)
 app.use('/flightsService',createProxyMiddleware({target:serverConfig.FLIGHT_SERVICE,changeOrigin:true}));
 app.use('/bookingService',createProxyMiddleware({target:serverConfig.BOOKING_SERVICE,changeOrigin:true}));
 app.use('/api',apiRoutes)

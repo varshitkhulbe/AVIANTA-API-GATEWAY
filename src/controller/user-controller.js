@@ -7,6 +7,7 @@ const { StatusCodes } = require("http-status-codes");
  * REQ.BODY:{EMAIL,PASSWORD}
  */
 async function signup(req, res) {
+  console.log("req body", req.body);
   try {
     const user = await UserService.createUser({
       email: req.body.email,
