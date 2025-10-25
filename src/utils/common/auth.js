@@ -29,5 +29,6 @@ function verifyToken(token)
 }
 module.exports={
     checkPassword,
-    createToken
+    createToken,
+    verifyToken
 }

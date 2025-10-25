@@ -1,3 +1,2 @@
 module.exports={
-    AuthRequestMiddlewares:require("./auth-request-middlewares")
-}
+    AuthRequestMiddlewares:require("./auth-request-middlewares")}

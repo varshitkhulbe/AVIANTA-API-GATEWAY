@@ -5,6 +5,7 @@ const {Auth,enums}=require('../utils/common')
 const userrepository = new UserRepository();
 const rolerepository= new RoleRepository();
 const  appError = require("../utils/error/app-error");
+const { add } = require("winston");
 
 async function createUser(data) {
   try {
@@ -83,8 +84,64 @@ try {
   throw error;
 }
 }
+
+async function addRoleToUser(data)
+{
+  try{
+  const user= await userrepository.get(data.id);
+  if(!user)
+  {
+    throw new appError("User not found",StatusCodes.NOT_FOUND);
+  }
+  const role=await rolerepository.getRoleByName(data.role);
+  if(!role)
+  {
+    throw new appError("Role not found",StatusCodes.NOT_FOUND);
+  }
+  await user.addRole(role);
+  console.log("role added",user);
+  return user;
+}
+catch(error)
+{
+  if(error instanceof appError)
+    {
+      throw error;
+    }
+    console.log(error);
+    throw new appError("Something went wrong",StatusCodes.INTERNAL_SERVER_ERROR);
+}
+}
+
+async function isAdmin(id)
+{
+  try{
+    const user= await userrepository.get(id);
+    if(!user)
+    {
+      throw new appError("User not found",StatusCodes.NOT_FOUND);
+    }
+    const adminRole=await rolerepository.getRoleByName(enums.USER_ROLES_ENUMS.ADMIN);
+    if(!adminRole)
+    {
+      throw new appError("Role not found",StatusCodes.NOT_FOUND); 
+    }
+    return user.hasRole(adminRole);
+  }
+  catch(error)
+  {
+    if(error instanceof appError)
+    {
+      throw error;
+    }
+    console.log(error);
+    throw new appError("Something went wrong",StatusCodes.INTERNAL_SERVER_ERROR);
+  }
+}
 module.exports={
     createUser,
     signin,
-    isAuthenticated
+    isAuthenticated,
+    addRoleToUser,
+    isAdmin
 }
